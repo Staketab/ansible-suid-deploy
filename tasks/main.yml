@@ -1,0 +1,14 @@
+---
+- name: Ensure '{{ deployment_workdir }}' exists
+  ansible.builtin.file:
+    path: "{{ deployment_workdir }}"
+    state: directory
+    mode: 0755
+
+- name: Transfer an Api artifact to the remote server
+  ansible.builtin.copy:
+    src: "{{ deployment_artifact }}"
+    dest: "{{ deployment_workdir }}/{{ deployment_name }}"
+    owner: "{{ deployment_user }}"
+    group: "{{ deployment_group }}"
+    mode: 0755
